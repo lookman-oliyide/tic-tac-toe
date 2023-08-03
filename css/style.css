@@ -4,9 +4,9 @@
     --base: #2e4756;
     --dark: #1a2a32;
     --light: #d3d3d3;
+    --pri: #6495ed;
     --sec: #f2b147;
     --tet: #3cc4bf;
-    --crb: #6495ed;
 }
 
 * {
@@ -42,6 +42,18 @@ button:hover {
 
 .border {
     border: 1px solid rgba(211, 211, 211, 0.4) !important;
+}
+
+.tetriary {
+    color: var(--tet);
+}
+
+.light {
+    color: var(--light);
+}
+
+.secondary {
+    color: var(--sec);
 }
 
 /* Utility classes */
@@ -178,7 +190,7 @@ button:hover {
     right: 0;
     /* left: 0; */
     background-color: #273a44;
-    border-radius: 2px;
+    border-radius: 5px;
 }
 
 .items :not(:first-child) {

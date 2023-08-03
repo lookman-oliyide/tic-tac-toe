@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-tac-toe</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://kit.fontawesome.com/3bfd3ce9e5.js" crossorigin="anonymous"></script>
 </head>
 <body class="flex-center">
     <!-- <div class="logo">
@@ -16,33 +15,33 @@
     <main>
         <div class="grid" data-id="grid">
             <!-- Player indicator -->
-            <div class="turn" data-id="turn">
-                <i class="fa-solid fa-x turquoise"></i>
-                <p>Player 1</p>
+            <div class="turn turquoise" data-id="turn">
+                <i class="fa-solid fa-x"></i>
+                <p>You're up</p>
             </div>
             <!-- Dropdown menu -->
-            <div class="menu">
-                <button class="menu-btn" data-id="menu-btn">
+            <div class="menu" data-id="menu">
+                <button class="menu-btn border" data-id="menu-btn">
                     <p>Menu</p>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
-                <div class="items border hidden" data-id="menu-open">
+                <div class="items border hidden" data-id="menu-items">
                     <button data-id="reset-btn">Reset</button>
                     <button data-id="new-game-btn">New Game</button>
                 </div>
             </div>
-
+            
             <!-- Game board -->
-            <div id="1" class="square shadow"></div>
-            <div id="2" class="square shadow"></div>
-            <div id="3" class="square shadow"></div>
-            <div id="4" class="square shadow"></div>
-            <div id="5" class="square shadow"></div>
-            <div id="6" class="square shadow"></div>
-            <div id="7" class="square shadow"></div>
-            <div id="8" class="square shadow"></div>
-            <div id="9" class="square shadow"></div>
-
+            <div id="1" class="square shadow" data-id="cell"></div>
+            <div id="2" class="square shadow" data-id="cell"></div>
+            <div id="3" class="square shadow" data-id="cell"></div>
+            <div id="4" class="square shadow" data-id="cell"></div>
+            <div id="5" class="square shadow" data-id="cell"></div>
+            <div id="6" class="square shadow" data-id="cell"></div>
+            <div id="7" class="square shadow" data-id="cell"></div>
+            <div id="8" class="square shadow" data-id="cell"></div>
+            <div id="9" class="square shadow" data-id="cell"></div>
+            
             <!-- Score board -->
             <div class="score shadow" style="background-color: var(--tet);">
                 <p>Player 1</p>
@@ -52,27 +51,27 @@
                 <p>Ties</p>
                 <span data-id="ties">0</span>
             </div>
-            <div class="score shadow" style="background-color: var(--crb);">
+            <div class="score shadow" style="background-color: var(--pri);">
                 <p>Player 2</p>
                 <span data-id="player2 -stats">0 wins</span>
             </div>
         </div>
     </main>
-
+    
     <footer>
         <p>Based on project by:</p>
         <a href="http://twitter.com/megfdev">@megfdev</a>
         <a href="http://twitter.com/Ivan00sto">@Ivan00sto</a>
         <a href="http://twitter.com/zg_dev">@zg_dev</a>
     </footer>
-
-    <div class="modal hidden">
-        <div class="modal-contents">
-            <p>Player 1 wins!</p>
-            <button>Play again</button>
-        </div>
+    
+    <div class="modal hidden" data-id="modal">
+        <div class="modal-icon" data-id="modal-icon"></div>
+        <div data-id="modal-text"></div>
+        <button data-id="modal-btn">Play again</button>
     </div>
-
+    
     <script src="js/app.js" type="module"></script>
+    <script src="https://kit.fontawesome.com/3bfd3ce9e5.js" crossorigin="anonymous"></script>
 </body>
  </html>

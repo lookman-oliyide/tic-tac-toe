@@ -119,8 +119,6 @@ button:hover {
 }
 
 .turn {
-    color: var(--sec);
-
     grid-column-start: 1; /*span two columns*/
     grid-column-end: 3;
     align-self: center;
@@ -132,7 +130,7 @@ button:hover {
 
 .turn p {
     font-size: .75rem;
-    animation: 0.5s ease-in-out text-animation__turn
+    animation: 0.25s ease-in-out text-animation__turn
 }
 
 @keyframes text-animation__turn {
@@ -147,9 +145,9 @@ button:hover {
 }
 
 .turn i {
-    font-size: 1rem;
+    font-size: 1.25rem;
     /* margin-left: 10px; */
-    animation: 0.5s ease-in-out icon-animation__turn
+    animation: 0.25s ease-in-out icon-animation__turn
 
 }
 
@@ -316,30 +314,33 @@ footer a {
     position: fixed;
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.modal-contents {
-    /* transform: translateY(-80px); */
-    height: 150px;
-    width: 100%;
-    max-width: 300px;
-    background-color: #1a2a32;
-    border-radius: 20px;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    color: white;
-    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
-.modal-contents button {
+.modal-icon {
+    /* transform: translateY(-80px); */
+    font-size: 6rem;
+    /* animation: 0.25s ease-in-out icon-animation__turn */
+}
+
+.modal-icon i {
+    padding: .25rem;
+}
+
+.modal-text {
+    font-size: 1.5rem;
+    color: var(--light);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.modal-btn {
+    margin-top: 20px;
     padding: 10px;
-    background-color: var(--sec);
+    background-color: var(--light);
     color: black;
     border-radius: 3px;
 }

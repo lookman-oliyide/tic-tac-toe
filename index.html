@@ -15,13 +15,13 @@
     <main>
         <div class="grid" data-id="grid">
             <!-- Player indicator -->
-            <div class="turn turquoise" data-id="turn">
-                <i class="fa-solid fa-x"></i>
-                <p>You're up</p>
+            <div class="turn" data-id="turn">
+                <i class="fa-solid fa-x  secondary"></i>
+                <p class="secondary">You start!</p>
             </div>
             <!-- Dropdown menu -->
             <div class="menu" data-id="menu">
-                <button class="menu-btn border" data-id="menu-btn">
+                <button class="menu-btn" data-id="menu-btn">
                     <p>Menu</p>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -45,7 +45,7 @@
             <!-- Score board -->
             <div class="score shadow" style="background-color: var(--tet);">
                 <p>Player 1</p>
-                <span data-id="player1-stats">0 wins</span>
+                <span data-id="p1-wins">0 wins</span>
             </div>
             <div class="score shadow" style="background-color: var(--light);">
                 <p>Ties</p>
@@ -53,7 +53,7 @@
             </div>
             <div class="score shadow" style="background-color: var(--pri);">
                 <p>Player 2</p>
-                <span data-id="player2 -stats">0 wins</span>
+                <span data-id="p2-wins">0 wins</span>
             </div>
         </div>
     </main>
@@ -67,8 +67,8 @@
     
     <div class="modal hidden" data-id="modal">
         <div class="modal-icon" data-id="modal-icon"></div>
-        <div data-id="modal-text"></div>
-        <button data-id="modal-btn">Play again</button>
+        <div class="modal-text" data-id="modal-text"></div>
+        <button class="modal-btn" data-id="modal-btn">Play again</button>
     </div>
     
     <script src="js/app.js" type="module"></script>

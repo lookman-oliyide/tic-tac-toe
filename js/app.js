@@ -201,11 +201,10 @@ function init() {
     //Initializing the View class, creating an instance
 
     const view = new View();
-    const store = new Store(players);
+    const store = new Store('lskey', players);
 
-    view.bindResetEvent((event) => {
+    function initView() {
         view.closeAll();
-        store.reset();
         view.clearGameMoves();
         view.setTurnIndicator(store.game.currentPlayer);
 
@@ -214,20 +213,24 @@ function init() {
             store.gameStats.playerStats[1].wins,
             store.gameStats.ties,
         );
-        // console.log(store.gameStats);
+        view.persistGameMoves(store.game.gameMoves);
+
+    }
+
+    initView(); // initialised here to update with state data on load
+
+    window.addEventListener("storage", () => {
+        initView(); // listen for storage event and update view
+    }); 
+
+    view.bindResetEvent((event) => {
+        store.reset();
+        initView();
     });
 
     view.bindNewGameEvent((event) => {
         store.newGame();
-
-        view.closeAll();
-        view.clearGameMoves();
-        view.setTurnIndicator(store.game.currentPlayer);
-        view.updateScoreBoard(
-            store.gameStats.playerStats[0].wins,
-            store.gameStats.playerStats[1].wins,
-            store.gameStats.ties,
-        ); 
+        initView();
     });
 
     view.bindPlayerMoveEvent((cell) => { 

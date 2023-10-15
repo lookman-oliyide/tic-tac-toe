@@ -81,6 +81,16 @@ export default class View {
         });
     }
 
+    persistGameMoves(gameMoves) {
+        this.$$.cells.forEach(cell => {
+            const existingMove = gameMoves.find(gameMove => gameMove.cellId === +cell.id)
+
+            if (existingMove) {
+                this.handlePlayerMove(cell, existingMove.player)
+            }
+        })
+    }
+
     handleModalIcon(winner, players) {
         const x = document.createElement('i');
         x.classList

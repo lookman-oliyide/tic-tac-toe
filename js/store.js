@@ -6,9 +6,10 @@ const initialValue = {
     },
 };
 
-export default class Store {
+export default class Store  extends EventTarget {
 
     constructor(key, players) {
+        super();
         this.storageKey = key;
         this.players = players;
     }
@@ -137,6 +138,7 @@ export default class Store {
                 throw new Error("Invalid argument passed into saveState")
         }
 
-        window.localStorage.setItem(this.storageKey, JSON.stringify(newState)); // save state to local storage 
+        window.localStorage.setItem(this.storageKey, JSON.stringify(newState)); // save state to local storage
+        this.dispatchEvent(new Event('stateChange'));// dispatch a 'stateChange event any time the state is saved'
     }
 }

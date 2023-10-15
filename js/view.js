@@ -4,6 +4,7 @@ export default class View {
     $$ = {};
 
     constructor(){
+        this.$.grid = this.#qs('[data-id="grid"]');
         this.$.menu = this.#qs('[data-id="menu"]');
         this.$.menuBtn = this.#qs('[data-id="menu-btn"]');
         this.$.menuItems = this.#qs('[data-id="menu-items"]');
@@ -35,6 +36,41 @@ export default class View {
 
     }
 
+    render(game, gameStats) {
+        
+        const {
+            gameMoves,
+            currentPlayer,
+            status: {
+                isComplete,
+                winner
+            },
+        } = game;
+        const { playerStats, ties } = gameStats;
+
+
+        this.#closeAll();
+        this.#clearGameMoves();
+        this.#updateScoreBoard(
+            playerStats[0].wins,
+            playerStats[1].wins,
+            ties
+        );
+        this.#persistGameMoves(gameMoves);
+        
+        if (isComplete) {
+            this.#openModal(winner
+                // ? `${store.game.status.winner.name} wins!`
+                ? `You win!`
+                : "Tie!"
+            );
+            // this.#handleModalIcon(winner, );
+            return;
+        }
+        this.#setTurnIndicator(currentPlayer);
+
+    }
+
     /**
      * Register all event Listeners
      */
@@ -51,16 +87,23 @@ export default class View {
     }
 
     bindPlayerMoveEvent(handler) {
-        this.$$.cells.forEach((cell) => {
-            cell.addEventListener("click", () => handler(cell));
-        });
+        this.#delegate(this.$.grid, '[data-id="cell"]', 'click', handler);
     }
 
     /**
      * DOM helper methods
      */
 
-    openModal(message) {
+    #handlePlayerMove(clickedCell, player) {
+        const icon = document.createElement("i");
+        
+        icon.classList.add("fa-solid",
+            player.iconClass,
+            player.colorClass);
+        clickedCell.replaceChildren(icon);
+    }
+    
+    #openModal(message) {
         this.$.modal.classList.remove("hidden");
         this.$.modalText.innerText = message;
     }
@@ -70,23 +113,23 @@ export default class View {
         this.$.modalIcon.replaceChildren();
     }
 
-    closeAll() {
+    #closeAll() {
         this.#closeModal();
         this.#closeMenu();
     }
 
-    clearGameMoves() {
+    #clearGameMoves() {
         this.$$.cells.forEach((cell) => {
             cell.replaceChildren();
         });
     }
 
-    persistGameMoves(gameMoves) {
+    #persistGameMoves(gameMoves) {
         this.$$.cells.forEach(cell => {
             const existingMove = gameMoves.find(gameMove => gameMove.cellId === +cell.id)
 
             if (existingMove) {
-                this.handlePlayerMove(cell, existingMove.player)
+                this.#handlePlayerMove(cell, existingMove.player)
             }
         })
     }
@@ -117,11 +160,27 @@ export default class View {
         }   
     }
 
-    updateScoreBoard(p1Wins, p2Wins, ties) {
+    #updateScoreBoard(p1Wins, p2Wins, ties) {
         this.$.p1Wins.innerText = `${p1Wins} wins`;
         this.$.p2Wins.innerText = `${p2Wins} wins`;
         this.$.ties.innerText = `${ties}`;
     }
+
+    #setTurnIndicator(player) {
+        const icon = document.createElement("i");
+        const label = document.createElement("p");
+
+        icon.classList.add("fa-solid",
+            player.iconClass,
+            player.colorClass);
+        label.classList.add(player.colorClass);
+        label.innerText = `${player.name}, your turn!`;
+        // label.innerText = `Your turn!`;
+
+
+        this.$.turn.replaceChildren(icon, label);
+    }
+
 
     #toggleMenu() {
         this.$.menuItems.classList.toggle("hidden");
@@ -164,31 +223,15 @@ export default class View {
 
         if (!elList) throw new Error(`Could not find ${selector}`);
         return elList;
+      
+
     }
-
-    setTurnIndicator(player) {
-        const icon = document.createElement("i");
-        const label = document.createElement("p");
-
-        icon.classList.add("fa-solid",
-            player.iconClass,
-            player.colorClass);
-        label.classList.add(player.colorClass);
-        label.innerText = `${player.name}, your turn!`;
-        // label.innerText = `Your turn!`;
-
-
-        this.$.turn.replaceChildren(icon, label);
+    // instead of looping through element children to listen for an event
+    #delegate(el, selector, eventKey, handler) { 
+        el.addEventListener(eventKey, (event) => {
+            if (event.target.matches(selector)) {
+                handler(event.target);
+            }
+        })
     }
-
-    handlePlayerMove(clickedCell, player) {
-        const icon = document.createElement("i");
-        
-        icon.classList.add("fa-solid",
-            player.iconClass,
-            player.colorClass);
-        clickedCell.replaceChildren(icon);
-    }
-
-    
 }
